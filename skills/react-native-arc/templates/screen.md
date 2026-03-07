@@ -38,7 +38,7 @@ export const createStyles = (theme: AppTheme, insets: EdgeInsets) => ({
     flex: 1,
     backgroundColor: theme.colors.background,
     paddingTop: insets.top,
-    paddingHorizontal: theme.sizes.paddingHorizontal,
+    paddingHorizontal: sizes.paddingHorizontal,
   },
   title: {
     fontSize: moderateScale(24),
@@ -133,7 +133,8 @@ export const [ScreenName]Screen = () => {
 ```typescript
 // src/screens/onboarding/login/login.tsx
 
-import { View, Text, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useStyles } from '@/hooks/use-styles';
@@ -167,9 +168,9 @@ export const LoginScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView
+    <KeyboardAwareScrollView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      bottomOffset={50}
     >
       <Formik
         initialValues={initialValues}
@@ -208,7 +209,7 @@ export const LoginScreen = () => {
           </View>
         )}
       </Formik>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 ```

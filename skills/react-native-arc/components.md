@@ -102,7 +102,7 @@ import { BUTTON_HEIGHTS, BUTTON_PADDING_HORIZONTAL } from './button.constants';
 
 export const createStyles = (theme: AppTheme, _insets: EdgeInsets) => ({
   container: {
-    borderRadius: theme.sizes.mainBorderRadius,
+    borderRadius: sizes.mainBorderRadius,
     alignItems: 'center' as const,
     justifyContent: 'center' as const,
     flexDirection: 'row' as const,

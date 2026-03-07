@@ -53,7 +53,6 @@ Color rules from mobile-design:
 
 1. **`src/hooks/use-app-theme.ts`** — access theme from context
 2. **`src/hooks/use-styles.ts`** — `useStyles(callback)` with theme + safe area insets
-3. **`src/hooks/use-app-initialization.ts`** — access full init context (theme + setColorScheme)
 
 ## Step 5: Generate AppInitializationProvider
 
@@ -103,7 +102,7 @@ For each screen the user listed, generate:
 Screen patterns (pick based on screen purpose):
 - **List screen** — FlatList with React.memo items, loading/error/empty states
 - **Detail screen** — ScrollView with sections, images, actions
-- **Form screen** — Formik form with validation, KeyboardAvoidingView
+- **Form screen** — Formik form with validation, KeyboardAwareScrollView (react-native-keyboard-controller)
 - **Settings screen** — sectioned list with toggle items
 - **Profile screen** — avatar, info cards, settings list
 

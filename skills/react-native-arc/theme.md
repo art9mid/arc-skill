@@ -62,13 +62,6 @@ export interface AppTheme {
     shadow: string;
     overlay: string;
   };
-  sizes: {
-    paddingVertical: number;
-    paddingHorizontal: number;
-    mainBorderRadius: number;
-    fieldGap: number;
-    skeletonBorderRadius: number;
-  };
   fonts: {
     regular: string;
     medium: string;
@@ -86,13 +79,14 @@ export interface AppTheme {
 import { moderateScale } from 'react-native-size-matters';
 import type { AppTheme, AppColorSchemeName } from './interfaces';
 
-const baseSizes = {
+// Static sizes — not in theme, they never change and don't need re-renders
+export const sizes = {
   paddingVertical: moderateScale(16),
   paddingHorizontal: moderateScale(20),
   mainBorderRadius: moderateScale(12),
   fieldGap: moderateScale(12),
   skeletonBorderRadius: moderateScale(8),
-};
+} as const;
 
 const baseFonts = {
   regular: 'Inter-Regular',    // Replace with your font
@@ -145,7 +139,6 @@ const colorSet = (
     shadow: dark ? '#000000' : '#000000',
     overlay: 'rgba(0, 0, 0, 0.5)',
   },
-  sizes: baseSizes,
   fonts: baseFonts,
 });
 
@@ -247,7 +240,7 @@ const createStyles = (theme: AppTheme, insets: EdgeInsets) => ({
     flex: 1,
     backgroundColor: theme.colors.background,
     paddingTop: insets.top,
-    paddingHorizontal: theme.sizes.paddingHorizontal,
+    paddingHorizontal: sizes.paddingHorizontal,
   },
   title: {
     color: theme.colors.text,

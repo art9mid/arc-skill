@@ -15,6 +15,7 @@ The theme system provides:
 // src/theme/interfaces.ts
 
 export type AppColorSchemeName =
+  | 'system'
   | 'light'
   | 'dark'
   | 'oceanBlue'
@@ -393,8 +394,49 @@ The `AppInitializationProvider` exposes a `setColorScheme` function:
 
 ```typescript
 const { setColorScheme } = useAppInitialization();
+setColorScheme('system');     // Follow device setting
 setColorScheme('dark');       // Switch to dark mode
 setColorScheme('oceanBlue');  // Switch to ocean blue
+```
+
+## System Appearance Sync
+
+When the user picks a color scheme, sync with the system `Appearance` API so native components (status bar, modals, alerts) match:
+
+```typescript
+// Inside AppInitializationProvider or wherever setColorScheme lives
+
+import { Appearance } from 'react-native';
+
+const applyColorScheme = (schemeName: AppColorSchemeName) => {
+  const theme = schemeName === 'system'
+    ? themes[Appearance.getColorScheme() === 'dark' ? 'dark' : 'light']
+    : themes[schemeName];
+
+  // Sync native appearance so status bar, alerts, modals follow
+  if (schemeName === 'system') {
+    Appearance.setColorScheme(null); // let system decide
+  } else {
+    Appearance.setColorScheme(theme.dark ? 'dark' : 'light');
+  }
+
+  setStoredColorScheme(schemeName);
+  setTheme(theme);
+};
+```
+
+When `'system'` is selected, also listen for device appearance changes:
+
+```typescript
+useEffect(() => {
+  if (colorSchemeName !== 'system') return;
+
+  const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+    setTheme(themes[colorScheme === 'dark' ? 'dark' : 'light']);
+  });
+
+  return () => subscription.remove();
+}, [colorSchemeName]);
 ```
 
 See `providers.md` for full implementation.

@@ -99,7 +99,7 @@ const getItemLayout = useCallback(
   keyExtractor={keyExtractor}
   getItemLayout={getItemLayout}
   // Performance props
-  removeClippedSubviews={true} // Android: detach off-screen
+  // removeClippedSubviews — true by default on Android; skip on iOS (bugs with transforms/absolute positioning, doesn't save memory)
   maxToRenderPerBatch={10} // Items per batch
   windowSize={5} // Render window (5 = 2 screens each side)
   initialNumToRender={10} // Initial items
@@ -115,7 +115,7 @@ const getItemLayout = useCallback(
 | `useCallback renderItem` | New function every render | 🔴 Critical |
 | Stable `keyExtractor` | Wrong item recycling | 🔴 Critical |
 | `getItemLayout` | Async layout calculation | 🟡 High |
-| `removeClippedSubviews` | Memory from off-screen | 🟡 High |
+| `removeClippedSubviews` | Default on Android; skip on iOS (missing content bugs) | 🟢 Skip |
 | `maxToRenderPerBatch` | Blocking main thread | 🟢 Medium |
 | `windowSize` | Memory usage | 🟢 Medium |
 

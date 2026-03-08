@@ -224,9 +224,9 @@ const renderItem = useCallback(
     offset: ITEM_HEIGHT * index,
     index,
   })}
-  removeClippedSubviews={true}
   maxToRenderPerBatch={10}
   windowSize={5}
+  // removeClippedSubviews — true by default on Android; avoid on iOS (missing content bugs)
 />
 ```
 

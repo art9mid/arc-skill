@@ -38,7 +38,7 @@ Search the codebase for violations in each category:
 - [ ] `renderItem` not wrapped in `useCallback`
 - [ ] List item components not wrapped in `React.memo`
 - [ ] Missing `keyExtractor` or using index as key
-- [ ] Missing `removeClippedSubviews` on FlatLists
+- [ ] Explicit `removeClippedSubviews={true}` on iOS FlatLists (buggy — causes missing content; already default on Android)
 - [ ] React Native `Image` instead of `expo-image`
 - [ ] `Animated` API used instead of `react-native-reanimated`
 - [ ] `console.log` statements left in code

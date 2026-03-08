@@ -113,7 +113,6 @@ export const [ScreenName]Screen = () => {
         data={data?.data}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        removeClippedSubviews
         maxToRenderPerBatch={10}
         windowSize={5}
       />

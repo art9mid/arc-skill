@@ -80,7 +80,7 @@ Read architecture:
 FlatList must include:
 - `React.memo` on card component
 - `useCallback` on renderItem and keyExtractor
-- `removeClippedSubviews`, `maxToRenderPerBatch={10}`, `windowSize={5}`
+- `maxToRenderPerBatch={10}`, `windowSize={5}`
 - Pull-to-refresh via `onRefresh`
 
 ### Detail Screen (if requested)

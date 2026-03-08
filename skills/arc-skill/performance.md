@@ -29,7 +29,7 @@ FlatList is the #1 performance concern in React Native.
   renderItem={renderItem}
   keyExtractor={keyExtractor}
   // --- Performance Props ---
-  removeClippedSubviews={true}        // Unmount off-screen items (Android)
+  // removeClippedSubviews — already true by default on Android; avoid on iOS (known missing content bugs with transforms/absolute positioning)
   maxToRenderPerBatch={10}             // Items per render batch
   windowSize={5}                       // Viewport multiplier for render window
   initialNumToRender={10}              // Items to render on first mount
@@ -292,7 +292,7 @@ npm install -D @welldone-software/why-did-you-render
 ## Performance Checklist
 
 - [ ] React Compiler enabled (`expo.experiments.reactCompiler: true` in app.json)
-- [ ] FlatList with `removeClippedSubviews`, `maxToRenderPerBatch`, `windowSize`
+- [ ] FlatList with `maxToRenderPerBatch`, `windowSize` (skip `removeClippedSubviews` — already default on Android, buggy on iOS)
 - [ ] Styles via `useStyles()` (not inline objects)
 - [ ] Images with explicit dimensions and caching
 - [ ] Animations with Reanimated (not Animated API)

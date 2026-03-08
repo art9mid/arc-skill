@@ -156,6 +156,124 @@ export const themes: Record<AppColorSchemeName, AppTheme> = {
 export const defaultColorScheme: AppColorSchemeName = 'light';
 ```
 
+## Typography Scale
+
+Static typography tokens — defined outside the theme since they don't change with color scheme. Uses `moderateScale` for responsive sizing across devices.
+
+> **Do not copy this template blindly.** Adjust sizes, weights, and line heights to match the actual design (Figma, screenshot, or brand guidelines). The values below are sensible defaults — use them as a starting point, not a rigid rule.
+
+```typescript
+// src/theme/typography.ts
+
+import { moderateScale } from 'react-native-size-matters';
+import { fontFamilies } from './fonts';
+
+// Major third ratio (1.25) — balanced for mobile
+// Scale: 11 → 12 → 14 → 16 → 18 → 20 → 24 → 32
+
+export const typography = {
+  // Headings
+  h1: {
+    fontFamily: fontFamilies.bold,
+    fontSize: moderateScale(32),
+    lineHeight: moderateScale(38),   // ~1.2×
+    letterSpacing: -0.5,
+  },
+  h2: {
+    fontFamily: fontFamilies.bold,
+    fontSize: moderateScale(24),
+    lineHeight: moderateScale(30),   // ~1.25×
+    letterSpacing: -0.3,
+  },
+  h3: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: moderateScale(20),
+    lineHeight: moderateScale(26),   // ~1.3×
+    letterSpacing: 0,
+  },
+  h4: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: moderateScale(18),
+    lineHeight: moderateScale(24),   // ~1.35×
+    letterSpacing: 0,
+  },
+
+  // Paragraphs
+  p1: {
+    fontFamily: fontFamilies.regular,
+    fontSize: moderateScale(16),
+    lineHeight: moderateScale(24),   // 1.5×
+    letterSpacing: 0,
+  },
+  p2: {
+    fontFamily: fontFamilies.regular,
+    fontSize: moderateScale(14),
+    lineHeight: moderateScale(20),   // ~1.45×
+    letterSpacing: 0.1,
+  },
+
+  // Labels & Captions
+  label: {
+    fontFamily: fontFamilies.medium,
+    fontSize: moderateScale(14),
+    lineHeight: moderateScale(20),   // ~1.4×
+    letterSpacing: 0.1,
+  },
+  caption: {
+    fontFamily: fontFamilies.regular,
+    fontSize: moderateScale(12),
+    lineHeight: moderateScale(16),   // ~1.35×
+    letterSpacing: 0.2,
+  },
+  overline: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: moderateScale(11),
+    lineHeight: moderateScale(14),   // ~1.3×
+    letterSpacing: 0.5,
+    textTransform: 'uppercase' as const,
+  },
+} as const;
+
+export type TypographyVariant = keyof typeof typography;
+```
+
+Usage:
+```typescript
+import { typography } from '@/theme/typography';
+
+// In style callbacks
+const createStyles = (theme: AppTheme, _insets: EdgeInsets) => ({
+  title: {
+    ...typography.h1,
+    color: theme.colors.text,
+  },
+  subtitle: {
+    ...typography.h3,
+    color: theme.colors.textSecondary,
+  },
+  body: {
+    ...typography.p1,
+    color: theme.colors.text,
+  },
+  meta: {
+    ...typography.caption,
+    color: theme.colors.textSecondary,
+  },
+});
+```
+
+| Token | Size | Weight | Use for |
+|-------|------|--------|---------|
+| `h1` | 32 | Bold | Page titles, hero text |
+| `h2` | 24 | Bold | Section headers |
+| `h3` | 20 | SemiBold | Subsection headers, card titles |
+| `h4` | 18 | SemiBold | Group headers, list section titles |
+| `p1` | 16 | Regular | Primary body text |
+| `p2` | 14 | Regular | Secondary body text |
+| `label` | 14 | Medium | Form labels, button text, tabs |
+| `caption` | 12 | Regular | Timestamps, metadata, hints |
+| `overline` | 11 | SemiBold | Section labels, tags (uppercase) |
+
 ## Font Configuration
 
 ```typescript
@@ -243,9 +361,12 @@ const createStyles = (theme: AppTheme, insets: EdgeInsets) => ({
     paddingHorizontal: sizes.paddingHorizontal,
   },
   title: {
+    ...typography.h2,
     color: theme.colors.text,
-    fontFamily: theme.fonts.bold,
-    fontSize: moderateScale(24),
+  },
+  subtitle: {
+    ...typography.p2,
+    color: theme.colors.textSecondary,
   },
 });
 ```

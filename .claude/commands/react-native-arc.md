@@ -22,7 +22,15 @@ You are scaffolding a new React Native (Expo) project using the **react-native-a
 
    If Context7 is not available, proceed with the architecture reference files.
 
-3. **Mobile Design Checkpoint (mandatory):**
+3. **Expo Skills (recommended):** If using Claude Code, install official Expo skills:
+   ```
+   /plugin marketplace add expo/skills
+   /plugin install expo-app-design
+   /plugin install expo-deployment
+   /plugin install upgrading-expo
+   ```
+
+4. **Mobile Design Checkpoint (mandatory):**
    Before writing any code, read `skills/react-native-arc/mobile-design/GUIDE.md` and complete:
    ```
    Platform:   [iOS / Android / Both]
@@ -159,10 +167,15 @@ Generate files in this order (respecting dependencies):
 - Set up Husky + lint-staged for pre-commit hooks (see `linting.md`)
 - Add `lint`, `format`, `typecheck`, `check` scripts to `package.json`
 - Create `.env.example`
-- Update `app.json` with project metadata
+- Update `app.json` with project metadata + enable React Compiler:
+  ```json
+  { "expo": { "experiments": { "reactCompiler": true } } }
+  ```
 
 ### Step 6: Verify
 ```bash
+npx react-compiler-healthcheck@latest
+npx expo doctor
 npx expo start
 ```
 

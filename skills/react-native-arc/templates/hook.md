@@ -7,24 +7,20 @@ All custom hooks live in `src/hooks/`. Component-specific hooks live in their co
 ```typescript
 // src/hooks/use-[hook-name].ts
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState } from 'react';
 
 /**
  * [Brief description of what the hook does]
  */
 export const use[HookName] = (/* params */) => {
-  // State
   const [value, setValue] = useState(/* initial */);
 
-  // Memoized callbacks
-  const handler = useCallback(() => {
+  // React Compiler auto-memoizes — no useCallback/useMemo needed
+  const handler = () => {
     // logic
-  }, [/* deps */]);
+  };
 
-  // Computed values
-  const computed = useMemo(() => {
-    // derived state
-  }, [/* deps */]);
+  const computed = /* derived state */;
 
   return { value, handler, computed };
 };
@@ -99,14 +95,14 @@ export const useStyles = <T extends StyleSheet.NamedStyles<T>>(
 ```typescript
 // src/components/[component-name]/[component-name].hooks.ts
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export const use[ComponentName]State = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
-  const open = useCallback(() => setIsOpen(true), []);
-  const close = useCallback(() => setIsOpen(false), []);
+  const toggle = () => setIsOpen((prev) => !prev);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
   return { isOpen, toggle, open, close };
 };
@@ -117,7 +113,7 @@ export const use[ComponentName]State = () => {
 1. **Hooks start with `use`** — React requirement
 2. **One hook per file** for global hooks in `src/hooks/`
 3. **Component-specific hooks** go in `[component].hooks.ts` in the component folder
-4. **Always memoize** callbacks and values returned from hooks
+4. **No manual memoization** — React Compiler handles `useCallback`/`useMemo` automatically
 5. **Throw descriptive errors** when used outside required providers
 6. **Return objects, not arrays** — `{ value, handler }` not `[value, handler]`
    (exception: simple two-value hooks like `useDebounce`)

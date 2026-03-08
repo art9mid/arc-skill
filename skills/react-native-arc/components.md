@@ -335,10 +335,6 @@ const shadowStyle = Platform.select({
 });
 ```
 
-## Memoization Rules
+## Memoization
 
-- **Use `React.memo()`** for list item components
-- **Use `useCallback()`** for event handlers passed as props
-- **Use `useMemo()`** for expensive computed values
-- **Style callbacks** are already memoized by `useStyles` — no need to wrap them
-- **Never memoize** components that receive children as props (breaks memoization anyway)
+React Compiler is enabled — it auto-memoizes components, callbacks, and values at build time. **Do NOT manually add** `React.memo()`, `useCallback()`, or `useMemo()`. Just write plain code.

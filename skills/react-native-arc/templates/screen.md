@@ -72,7 +72,6 @@ export { [Screen2Name]Screen } from './[screen-2-name]';
 // src/screens/[tab-group]/[screen-name]/[screen-name].tsx
 
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
-import React, { useCallback } from 'react';
 import { useStyles } from '@/hooks/use-styles';
 import { useAppNavigation } from '@/hooks/use-app-navigation';
 import { use[Domain]Query } from '@/store/services/[domain]';
@@ -85,17 +84,12 @@ export const [ScreenName]Screen = () => {
   const navigation = useAppNavigation();
   const { data, isLoading, error, refetch } = use[Domain]Query();
 
-  const renderItem = useCallback(
-    ({ item }: { item: [ItemType] }) => (
-      <[ItemCard] item={item} />
-    ),
-    [],
+  // React Compiler auto-memoizes — no useCallback/React.memo needed
+  const renderItem = ({ item }: { item: [ItemType] }) => (
+    <[ItemCard] item={item} />
   );
 
-  const keyExtractor = useCallback(
-    (item: [ItemType]) => item.id,
-    [],
-  );
+  const keyExtractor = (item: [ItemType]) => item.id;
 
   if (isLoading) {
     return (

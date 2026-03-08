@@ -33,6 +33,19 @@ npx create-expo-app@latest <project-name> --template blank-typescript
 cd <project-name>
 ```
 
+## Step 3.5: Install Expo Skills (if using Claude Code)
+
+Install official Expo skills for AI-assisted development:
+
+```
+/plugin marketplace add expo/skills
+/plugin install expo-app-design
+/plugin install expo-deployment
+/plugin install upgrading-expo
+```
+
+These teach the agent Expo-specific patterns: native UI, data fetching, deployment, CI/CD, and SDK upgrades.
+
 ## Step 4: Install ALL Dependencies
 
 Always use `npx expo install` for Expo-compatible packages (resolves correct versions automatically). Use latest versions — do NOT pin specific versions.
@@ -98,7 +111,10 @@ Using patterns from `typescript.md` and `linting.md`:
 5. **Husky + lint-staged** — `npx husky init`, pre-commit hook
 6. **`package.json` scripts** — `lint`, `lint:fix`, `format`, `typecheck`, `check`
 7. **`.env.example`** — `EXPO_PUBLIC_API_URL=`
-8. **`app.json`** — project name, slug, scheme for deep linking
+8. **`app.json`** — project name, slug, scheme for deep linking, and enable React Compiler:
+   ```json
+   { "expo": { "experiments": { "reactCompiler": true } } }
+   ```
 
 ## Step 7: Generate Foundation Code
 

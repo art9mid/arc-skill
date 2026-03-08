@@ -2,10 +2,18 @@
 
 Reference: https://reactnative.dev/docs/performance
 
+## React Compiler
+
+Enabled via `app.json` → `expo.experiments.reactCompiler: true`. Expo handles the babel plugin automatically. The compiler auto-memoizes components, hooks, and expressions at build time. This means:
+
+- **Do NOT manually add** `React.memo()`, `useMemo()`, or `useCallback()` — the compiler handles it
+- **Exception**: `useStyles` hook keeps its own `useMemo` since the compiler doesn't optimize `StyleSheet.create` calls
+- If you see manual memoization in existing code, it's safe to remove — the compiler will optimize it anyway
+
 ## Core Principles
 
 1. **Minimize JavaScript bridge traffic** — use native solutions where possible
-2. **Reduce re-renders** — memoize components, callbacks, and values
+2. **Reduce re-renders** — React Compiler handles memoization automatically
 3. **Offload animations to native thread** — use Reanimated, not Animated API
 4. **Lazy load and paginate** — only render and fetch what's needed
 5. **Profile first, optimize second** — measure before assuming bottlenecks
@@ -30,37 +38,30 @@ FlatList is the #1 performance concern in React Native.
   extraData={undefined}                // Only pass if list depends on external state
 />
 
-// ✅ Memoized renderItem
-const renderItem = useCallback(
-  ({ item }: { item: ItemType }) => <ItemCard item={item} />,
-  [],
-);
+// React Compiler handles memoization — just write plain functions
+const renderItem = ({ item }: { item: ItemType }) => <ItemCard item={item} />;
 
-// ✅ Stable keyExtractor
-const keyExtractor = useCallback((item: ItemType) => item.id, []);
+const keyExtractor = (item: ItemType) => item.id;
 
-// ✅ Fixed-height layout (skip measurement)
+// Fixed-height layout (skip measurement)
 const ITEM_HEIGHT = moderateScale(80);
-const getItemLayout = useCallback(
-  (_: any, index: number) => ({
-    length: ITEM_HEIGHT,
-    offset: ITEM_HEIGHT * index,
-    index,
-  }),
-  [],
-);
+const getItemLayout = (_: any, index: number) => ({
+  length: ITEM_HEIGHT,
+  offset: ITEM_HEIGHT * index,
+  index,
+});
 ```
 
 ```typescript
-// ✅ Memoized list item component
-const ItemCard = React.memo(({ item }: { item: ItemType }) => {
+// No React.memo needed — compiler optimizes automatically
+const ItemCard = ({ item }: { item: ItemType }) => {
   const { styles } = useStyles(createItemStyles);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{item.title}</Text>
     </View>
   );
-});
+};
 ```
 
 ### FlashList Alternative
@@ -137,35 +138,26 @@ const MyComponent = () => {
 - `setInterval`/`setTimeout` for animations
 - `LayoutAnimation` in heavy UI (causes full layout recalculation)
 
-## Component Memoization
+## Memoization (handled by React Compiler)
+
+React Compiler auto-memoizes components, callbacks, and values. Write plain code — no manual wrapping needed:
 
 ```typescript
-// ✅ Memoize list items and heavy components
-const ExpensiveComponent = React.memo(({ data }: Props) => {
-  // Only re-renders when `data` changes (shallow comparison)
+// ✅ Just write normal code — compiler memoizes automatically
+const ExpensiveComponent = ({ data }: Props) => {
   return <View>...</View>;
-});
+};
 
-// ✅ Memoize callbacks passed to children
 const Parent = () => {
-  const handlePress = useCallback(() => {
+  const handlePress = () => {
     navigation.navigate('Detail');
-  }, [navigation]);
+  };
 
   return <ExpensiveComponent onPress={handlePress} />;
 };
 
-// ✅ Memoize expensive computations
-const filteredItems = useMemo(
-  () => items.filter((item) => item.isActive),
-  [items],
-);
+const filteredItems = items.filter((item) => item.isActive);
 ```
-
-**When NOT to memoize:**
-- Simple components that render fast anyway
-- Components that receive `children` as props (breaks memo)
-- Values that change every render (memoization overhead > benefit)
 
 ## Avoid Re-Renders
 
@@ -173,22 +165,9 @@ const filteredItems = useMemo(
 // ❌ BAD: Inline style objects (new object every render)
 <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
 
-// ✅ GOOD: Use useStyles hook (memoized)
+// ✅ GOOD: Use useStyles hook
 const { styles } = useStyles(createStyles);
 <View style={styles.container}>
-
-// ❌ BAD: Inline function in onPress (new function every render)
-<Pressable onPress={() => doSomething(item.id)}>
-
-// ✅ GOOD: Memoized callback
-const handlePress = useCallback(() => doSomething(item.id), [item.id]);
-<Pressable onPress={handlePress}>
-
-// ❌ BAD: Deriving state in render
-const activeItems = items.filter(i => i.active);
-
-// ✅ GOOD: useMemo
-const activeItems = useMemo(() => items.filter(i => i.active), [items]);
 ```
 
 ## Navigation Performance
@@ -312,10 +291,8 @@ npm install -D @welldone-software/why-did-you-render
 
 ## Performance Checklist
 
+- [ ] React Compiler enabled (`expo.experiments.reactCompiler: true` in app.json)
 - [ ] FlatList with `removeClippedSubviews`, `maxToRenderPerBatch`, `windowSize`
-- [ ] List items wrapped in `React.memo()`
-- [ ] Callbacks memoized with `useCallback()` when passed as props
-- [ ] Expensive computations wrapped in `useMemo()`
 - [ ] Styles via `useStyles()` (not inline objects)
 - [ ] Images with explicit dimensions and caching
 - [ ] Animations with Reanimated (not Animated API)

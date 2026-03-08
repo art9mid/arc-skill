@@ -75,6 +75,22 @@ module.exports = function (api) {
 
 Install: `npm install -D babel-plugin-module-resolver`
 
+## React Compiler
+
+Enabled via `app.json` — Expo handles the babel plugin automatically:
+
+```json
+{
+  "expo": {
+    "experiments": {
+      "reactCompiler": true
+    }
+  }
+}
+```
+
+Verify project compatibility: `npx react-compiler-healthcheck@latest`
+
 ## Naming Conventions
 
 | Entity | Convention | Example |

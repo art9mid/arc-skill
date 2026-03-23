@@ -23,13 +23,7 @@ You are scaffolding a new React Native (Expo) project using the **arc-skill** ar
    Tell the user: "Do you have Context7 MCP connected? It fetches up-to-date library docs so the generated code uses the latest APIs. If not, add it: https://github.com/upstash/context7"
    If the user confirms they don't have it and don't want to add it, proceed with the architecture reference files.
 
-3. **Expo Skills (recommended):** If using Claude Code, install official Expo skills:
-   ```
-   /plugin marketplace add expo/skills
-   /plugin install expo-app-design
-   /plugin install expo-deployment
-   /plugin install upgrading-expo
-   ```
+3. **Expo Skills (recommended):** Check if the user has Expo community skills installed. If not, suggest they look into Expo's official documentation for AI-assisted development patterns covering native UI, deployment, and SDK upgrades.
 
 4. **Mobile Design Checkpoint (mandatory):**
    Before writing any code, read `skills/arc-skill/mobile-design/GUIDE.md` and complete:
@@ -203,9 +197,10 @@ npx expo start
 - Platform-respectful: iOS follows HIG, Android follows Material Design 3
 
 **Performance (from performance.md + mobile-performance.md):**
-- FlatList with `React.memo` items, `useCallback` renderItem — never ScrollView for lists
+- FlatList for lists — never ScrollView for dynamic/long lists
 - Reanimated for animations (UI thread) — never Animated API for complex animations
 - `expo-image` instead of React Native `Image` — with caching and blurhash
 - `freezeOnBlur` on tab screens
 - Clean up timers, listeners, subscriptions in useEffect cleanup
 - Remove all `console.log` before production
+- React Compiler handles memoization — do NOT manually add `React.memo`, `useCallback`, or `useMemo`

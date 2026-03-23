@@ -1,6 +1,6 @@
 ---
 name: arc-ui
-description: "Add theme system, reusable components, screen layouts, and mobile UX design to a React Native Expo project. Use after arc-scaffold to build the visual layer."
+description: "Add theme system, reusable components, screen layouts, and mobile UX design to a React Native Expo project. Use after arc-scaffold to build the visual layer. Trigger when the user wants to add a theme, dark mode, UI components, buttons, inputs, screen layouts, design system, or visual polish to their React Native app."
 ---
 
 # Arc UI — Theme, Components & Screens
@@ -100,7 +100,7 @@ For each screen the user listed, generate:
 3. Screen-specific `components/` if needed
 
 Screen patterns (pick based on screen purpose):
-- **List screen** — FlatList with React.memo items, loading/error/empty states
+- **List screen** — FlatList with loading/error/empty states
 - **Detail screen** — ScrollView with sections, images, actions
 - **Form screen** — Formik form with validation, KeyboardAwareScrollView (react-native-keyboard-controller)
 - **Settings screen** — sectioned list with toggle items

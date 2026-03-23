@@ -63,34 +63,29 @@ If your code takes longer:
 
 ```javascript
 // ✅ CORRECT: All optimizations applied
+// React Compiler handles memoization — no manual React.memo/useCallback/useMemo needed
 
-// 1. Memoize the item component
-const ListItem = React.memo(({ item }: { item: Item }) => {
+// 1. Plain item component (compiler auto-memoizes)
+const ListItem = ({ item }: { item: Item }) => {
   return (
     <Pressable style={styles.item}>
       <Text>{item.title}</Text>
     </Pressable>
   );
-});
+};
 
-// 2. Memoize renderItem with useCallback
-const renderItem = useCallback(
-  ({ item }: { item: Item }) => <ListItem item={item} />,
-  [] // Empty deps = never recreated
-);
+// 2. Plain renderItem (compiler auto-memoizes)
+const renderItem = ({ item }: { item: Item }) => <ListItem item={item} />;
 
 // 3. Stable keyExtractor (NEVER use index!)
-const keyExtractor = useCallback((item: Item) => item.id, []);
+const keyExtractor = (item: Item) => item.id;
 
 // 4. Provide getItemLayout for fixed-height items
-const getItemLayout = useCallback(
-  (data: Item[] | null, index: number) => ({
-    length: ITEM_HEIGHT, // Fixed height
-    offset: ITEM_HEIGHT * index,
-    index,
-  }),
-  []
-);
+const getItemLayout = (data: Item[] | null, index: number) => ({
+  length: ITEM_HEIGHT, // Fixed height
+  offset: ITEM_HEIGHT * index,
+  index,
+});
 
 // 5. Apply to FlatList
 <FlatList
@@ -111,8 +106,7 @@ const getItemLayout = useCallback(
 
 | Optimization | What It Prevents | Impact |
 |--------------|------------------|--------|
-| `React.memo` | Re-render on parent change | 🔴 Critical |
-| `useCallback renderItem` | New function every render | 🔴 Critical |
+| React Compiler | Handles memoization automatically — no manual wrappers needed | 🔴 Critical |
 | Stable `keyExtractor` | Wrong item recycling | 🔴 Critical |
 | `getItemLayout` | Async layout calculation | 🟡 High |
 | `removeClippedSubviews` | Default on Android; skip on iOS (missing content bugs) | 🟢 Skip |

@@ -1,6 +1,6 @@
 ---
 name: arc-scaffold
-description: "Scaffold a new React Native Expo project with folder structure, dependencies, TypeScript config, linting, and navigation shell. Use when starting a new mobile app from scratch."
+description: "Scaffold a new React Native Expo project with folder structure, dependencies, TypeScript config, linting, and navigation shell. Use when starting a new mobile app from scratch, when the user says 'create a new app', 'start a project', 'set up React Native', 'init Expo app', or needs project boilerplate. Trigger this even if they don't explicitly say 'scaffold'."
 ---
 
 # Arc Scaffold — Project Foundation
@@ -32,19 +32,6 @@ Read these from `skills/arc-skill/`:
 npx create-expo-app@latest <project-name> --template blank-typescript
 cd <project-name>
 ```
-
-## Step 3.5: Install Expo Skills (if using Claude Code)
-
-Install official Expo skills for AI-assisted development:
-
-```
-/plugin marketplace add expo/skills
-/plugin install expo-app-design
-/plugin install expo-deployment
-/plugin install upgrading-expo
-```
-
-These teach the agent Expo-specific patterns: native UI, data fetching, deployment, CI/CD, and SDK upgrades.
 
 ## Step 4: Install ALL Dependencies
 

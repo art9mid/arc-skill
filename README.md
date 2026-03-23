@@ -113,32 +113,9 @@ Run automated UX checks on any React Native project:
 python skills/arc-skill/mobile-design/scripts/mobile_audit.py /path/to/project
 ```
 
-## Expo Skills (Recommended)
+## Expo Skills (Optional)
 
-If using Claude Code, install official Expo skills for AI-assisted development:
-
-```
-/plugin marketplace add expo/skills
-/plugin install expo-app-design
-/plugin install expo-deployment
-/plugin install upgrading-expo
-```
-
-| Skill | Description | Plugin |
-|-------|-------------|--------|
-| `building-native-ui` | Expo Router, styling, components, navigation, animations, native tabs | `expo-app-design` |
-| `native-data-fetching` | Fetch API, React Query, SWR, caching, offline support | `expo-app-design` |
-| `expo-api-routes` | API routes in Expo Router with EAS Hosting | `expo-app-design` |
-| `expo-dev-client` | Dev client builds, TestFlight distribution | `expo-app-design` |
-| `expo-tailwind-setup` | Tailwind CSS with NativeWind | `expo-app-design` |
-| `use-dom` | DOM components (web code in native webview) | `expo-app-design` |
-| `expo-ui-jetpack-compose` | Jetpack Compose views in Expo apps | `expo-app-design` |
-| `expo-ui-swift-ui` | SwiftUI views in Expo apps | `expo-app-design` |
-| `expo-deployment` | App Store, Google Play, web hosting via EAS | `expo-deployment` |
-| `expo-cicd-workflows` | EAS Workflows YAML for CI/CD | `expo-deployment` |
-| `upgrading-expo` | SDK upgrades, dependency fixes, breaking changes | `upgrading-expo` |
-
-Check for latest skills: https://docs.expo.dev/skills/#available-expo-skills
+Expo provides community skills for AI-assisted development covering native UI, deployment, CI/CD, and SDK upgrades. Check the latest available skills in the Expo documentation.
 
 ## Context7 (Optional)
 

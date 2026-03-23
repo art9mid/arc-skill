@@ -1,6 +1,6 @@
 ---
 name: arc-connect
-description: "Connect API layer, storage, state management, authentication, and i18n to an existing React Native Expo project. Use after arc-scaffold to add backend integration."
+description: "Connect API layer, storage, state management, authentication, and i18n to an existing React Native Expo project. Use after arc-scaffold to add backend integration. Trigger when the user mentions adding API calls, auth flow, login, storage, state management, internationalization, backend connection, or data fetching to their React Native app."
 ---
 
 # Arc Connect — API, Storage & State

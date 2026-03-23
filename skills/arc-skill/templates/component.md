@@ -74,9 +74,9 @@ export const [ComponentName] = ({ ...props }: [ComponentName]Props) => {
 ```typescript
 // src/components/[component-name]/[component-name].hooks.ts
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
-// Component-specific hooks
+// Component-specific hooks (React Compiler auto-memoizes — no useCallback/useMemo needed)
 export const use[ComponentName]State = () => {
   // Custom hook logic
 };

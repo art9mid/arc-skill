@@ -1,6 +1,6 @@
 ---
 name: arc-audit
-description: "Audit a React Native Expo project for mobile UX issues, performance problems, and architecture violations. Use to check code quality against arc-skill best practices."
+description: "Audit a React Native Expo project for mobile UX issues, performance problems, and architecture violations. Use to check code quality against arc-skill best practices. Trigger when the user asks to review code, check for issues, wants a health check, mentions touch targets, accessibility, performance audit, or says 'is my code good' / 'what should I fix'."
 ---
 
 # Arc Audit — Mobile UX & Architecture Check
@@ -34,16 +34,14 @@ Search the codebase for violations in each category:
 - [ ] Primary CTAs positioned at top instead of bottom (thumb zone)
 
 ### Performance
-- [ ] `ScrollView` used for lists (should be `FlatList` or `FlashList`)
-- [ ] `renderItem` not wrapped in `useCallback`
-- [ ] List item components not wrapped in `React.memo`
+- [ ] `ScrollView` used for dynamic/long lists (should be `FlatList` or `FlashList`)
 - [ ] Missing `keyExtractor` or using index as key
 - [ ] Explicit `removeClippedSubviews={true}` on iOS FlatLists (buggy — causes missing content; already default on Android)
 - [ ] React Native `Image` instead of `expo-image`
 - [ ] `Animated` API used instead of `react-native-reanimated`
 - [ ] `console.log` statements left in code
-- [ ] Missing `useCallback`/`useMemo` for props passed to memoized children
-- [ ] Heavy computation inside render (no `useMemo`)
+- [ ] Heavy computation inside render without memoization
+- [ ] Manual `React.memo`, `useCallback`, or `useMemo` present (React Compiler handles this — remove manual wrappers)
 
 ### Architecture
 - [ ] Styles defined inline or in the same file as component (should be `.styles.ts`)

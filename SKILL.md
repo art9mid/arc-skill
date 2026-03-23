@@ -1,6 +1,6 @@
 ---
 name: arc-skill
-description: Scaffold production-ready React Native Expo projects with battle-tested architecture including navigation, theme system, API layer, storage, state management, i18n, linting, and mobile UX design system. Use when creating a new React Native app, setting up Expo project architecture, or when the user mentions React Native project scaffolding, mobile app boilerplate, or Expo starter template.
+description: Scaffold production-ready React Native Expo projects with battle-tested architecture including navigation, theme system, API layer, storage, state management, i18n, linting, and mobile UX design system. Use when creating a new React Native app, setting up Expo project architecture, or when the user mentions React Native project scaffolding, mobile app boilerplate, or Expo starter template. Also trigger when the user wants to build a mobile app, asks about React Native best practices, needs help structuring an Expo project, or says things like "I want to make an app" or "set up a mobile project".
 metadata:
   author: art9mid
   version: "1.0"
@@ -76,6 +76,7 @@ Read from `skills/arc-skill/` before generating code:
 - `decision-trees.md` — Framework, state, storage decisions
 - `mobile-testing.md` — Testing pyramid (Jest, RNTL, Detox, Maestro)
 - `mobile-debugging.md` — Reactotron, Flipper, profiling
+- `mobile-design-thinking.md` — Anti-memorization, context-based thinking, decision framework
 
 **Code Templates** (`skills/arc-skill/templates/`):
 - `component.md` — Component with types, styles, constants, sub-components
@@ -158,7 +159,7 @@ component-name/
 - Storage via typed MMKV wrappers — never raw access
 - Navigation via typed `useAppNavigation()` hook
 - Touch targets min 44pt (iOS) / 48dp (Android)
-- `FlatList` with `React.memo` items — never `ScrollView` for lists
+- `FlatList` for lists — never `ScrollView` for dynamic/long lists
 - `expo-image` — never React Native `Image`
 - Reanimated for animations — never `Animated` API for complex motion
 - Barrel exports (`index.ts`) in every folder
@@ -166,3 +167,4 @@ component-name/
 - Platform-respectful: iOS feels iOS, Android feels Android
 - Dark mode: `#121212` surfaces, `#E8E8E8` text, WCAG AA contrast
 - No `console.log` in production — blocks JS thread
+- React Compiler is enabled — do NOT manually add `React.memo`, `useCallback`, or `useMemo` (the compiler handles memoization automatically)

@@ -26,6 +26,7 @@ Read `skills/arc-skill/mobile-design/` for:
 - Color system (OLED, dark mode, semantic colors, contrast)
 - Navigation patterns (tab bar, stack, deep linking)
 - Backend patterns (offline sync, push notifications, auth)
+- Design thinking (anti-memorization, context-based decisions)
 
 # Code Templates
 
@@ -46,7 +47,12 @@ Use templates from `skills/arc-skill/templates/`:
 7. Barrel exports (index.ts) in every folder
 8. kebab-case folders, PascalCase exports
 9. Touch targets minimum 44pt (iOS) / 48dp (Android)
-10. FlatList with React.memo items, useCallback renderItem, never ScrollView for lists
+10. FlatList for lists — never ScrollView for dynamic/long lists
 11. Reanimated for animations (UI thread), never Animated API for complex animations
 12. expo-image instead of React Native Image
 13. Platform-respectful: iOS feels iOS, Android feels Android
+14. Dark mode: #121212 surfaces, #E8E8E8 text, WCAG AA contrast
+15. No console.log in production — blocks JS thread
+16. React Compiler enabled — do NOT manually add React.memo, useCallback, or useMemo
+17. Clean up timers, listeners, subscriptions in useEffect return
+18. Install deps via `npx expo install`, then `npx expo doctor`

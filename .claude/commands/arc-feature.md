@@ -1,6 +1,6 @@
 ---
 name: arc-feature
-description: "Add a complete new feature domain to an existing React Native Expo project — types, API module, React Query hooks, screen, and components in one go. Use when adding a new entity like products, orders, or chat."
+description: "Add a complete new feature domain to an existing React Native Expo project — types, API module, React Query hooks, screen, and components in one go. Use when adding a new entity like products, orders, chat, users, recipes, or any CRUD resource. Trigger when the user says 'add a feature', 'create a new screen for X', 'I need a products page', or wants to wire up a new data domain end-to-end."
 ---
 
 # Arc Feature — Add a New Domain
@@ -26,8 +26,8 @@ Read templates from `skills/arc-skill/templates/`:
 4. `hook.md` — if custom hooks needed
 
 Read architecture:
-5. `components.md` — component rules, touch targets, memoization
-6. `performance.md` — FlatList optimization, React.memo
+5. `components.md` — component rules, touch targets
+6. `performance.md` — FlatList optimization
 
 ## Step 3: Generate Type Definitions
 
@@ -74,14 +74,13 @@ Read architecture:
 **`src/screens/[tab]/[domain]-list/`**:
 - `[domain]-list.tsx` — FlatList with loading/error/empty states
 - `[domain]-list.styles.ts`
-- `components/[domain]-card/` — list item component (React.memo)
+- `components/[domain]-card/` — list item component
   - `index.tsx` + `[domain]-card.styles.ts` + `[domain]-card.types.ts`
 
 FlatList must include:
-- `React.memo` on card component
-- `useCallback` on renderItem and keyExtractor
 - `maxToRenderPerBatch={10}`, `windowSize={5}`
 - Pull-to-refresh via `onRefresh`
+- Note: React Compiler handles memoization — do NOT manually add `React.memo`, `useCallback`, or `useMemo`
 
 ### Detail Screen (if requested)
 **`src/screens/[tab]/[domain]-detail/`**:

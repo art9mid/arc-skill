@@ -57,6 +57,7 @@ Read `skills/arc-skill/mobile-design/` for platform-specific guidelines:
 | `decision-trees.md` | Framework, state management, storage, auth selection |
 | `mobile-testing.md` | Testing pyramid, Jest, RNTL, Detox, Maestro |
 | `mobile-debugging.md` | Reactotron, Flipper, profiling, crash analysis |
+| `mobile-design-thinking.md` | Anti-memorization, context-based thinking, decision framework |
 
 ## Code Templates
 
@@ -80,12 +81,11 @@ Use `skills/arc-skill/templates/` when generating new code:
 7. **Exports**: Barrel exports (`index.ts`) in every folder
 8. **Naming**: kebab-case folders, PascalCase exports
 9. **Touch targets**: Minimum 44pt (iOS) / 48dp (Android), 8px spacing between targets
-10. **Lists**: `FlatList` — never `ScrollView` for lists
+10. **Lists**: `FlatList` for lists — never `ScrollView` for dynamic/long lists
 11. **Animations**: `react-native-reanimated` (UI thread) — never `Animated` API for complex animations
 12. **Images**: `expo-image` with blurhash + disk cache — never React Native `Image`
 13. **Platform**: iOS follows HIG, Android follows Material Design 3 — respect both
 14. **Dark mode**: `#121212` surfaces (not pure black), `#E8E8E8` text (not pure white), WCAG AA contrast
 15. **Cleanup**: Always clean up timers, listeners, subscriptions in `useEffect` return
-16. **React Compiler**: Enabled via `app.json` (`expo.experiments.reactCompiler: true`) — do NOT manually add `React.memo`, `useCallback`, or `useMemo`
+16. **React Compiler**: Enabled via `app.json` (`expo.experiments.reactCompiler: true`) — do NOT manually add `React.memo`, `useCallback`, or `useMemo` (the compiler handles memoization automatically)
 17. **Dependencies**: Always install latest versions via `npx expo install` (not `npm install` for Expo-compatible packages), then run `npx expo doctor` to verify compatibility
-18. **Expo Skills**: Install official Expo skills for AI-assisted development — `expo-app-design` (native UI, data fetching, Tailwind, SwiftUI, Jetpack Compose), `expo-deployment` (app stores, CI/CD), `upgrading-expo` (SDK upgrades)

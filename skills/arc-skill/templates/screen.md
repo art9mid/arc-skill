@@ -29,7 +29,6 @@ export const [ScreenName]Screen = () => {
 ```typescript
 // src/screens/[tab-group]/[screen-name]/[screen-name].styles.ts
 
-import { moderateScale } from 'react-native-size-matters';
 import type { AppTheme } from '@/theme/interfaces';
 import type { EdgeInsets } from 'react-native-safe-area-context';
 
@@ -41,10 +40,10 @@ export const createStyles = (theme: AppTheme, insets: EdgeInsets) => ({
     paddingHorizontal: sizes.paddingHorizontal,
   },
   title: {
-    fontSize: moderateScale(24),
+    fontSize: 24,
     fontFamily: theme.fonts.bold,
     color: theme.colors.text,
-    marginBottom: moderateScale(16),
+    marginBottom: 16,
   },
 });
 ```

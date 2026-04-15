@@ -44,7 +44,7 @@ const renderItem = ({ item }: { item: ItemType }) => <ItemCard item={item} />;
 const keyExtractor = (item: ItemType) => item.id;
 
 // Fixed-height layout (skip measurement)
-const ITEM_HEIGHT = moderateScale(80);
+const ITEM_HEIGHT = 80;
 const getItemLayout = (_: any, index: number) => ({
   length: ITEM_HEIGHT,
   offset: ITEM_HEIGHT * index,

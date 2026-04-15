@@ -27,7 +27,7 @@ component-name/
 4. **Constants in separate file** — variants, sizes, defaults go in constants
 5. **index.tsx is the barrel** — it exports the component + re-exports types
 6. **Style callbacks are pure functions** — defined outside of the component, not inline
-7. **All sizing uses `react-native-size-matters`** — no hardcoded pixel values
+7. **Use plain dp/pt values for sizing** — RN handles pixel density automatically, no scaling library needed
 8. **useStyles hook for all styles** — provides theme + insets
 
 ## Styling Rules
@@ -90,31 +90,30 @@ export interface ButtonProps extends Omit<PressableProps, 'style'> {
 ```typescript
 // src/components/button/button.constants.ts
 
-import { moderateScale } from 'react-native-size-matters';
 import type { ButtonSize } from './button.types';
 
 export const BUTTON_HEIGHTS: Record<ButtonSize, number> = {
-  sm: moderateScale(32),
-  md: moderateScale(44),
-  lg: moderateScale(56),
+  sm: 32,
+  md: 44,   // meets iOS 44pt minimum touch target
+  lg: 56,
 };
 
 export const BUTTON_FONT_SIZES: Record<ButtonSize, number> = {
-  sm: moderateScale(12),
-  md: moderateScale(14),
-  lg: moderateScale(16),
+  sm: 12,
+  md: 14,
+  lg: 16,
 };
 
 export const BUTTON_ICON_SIZES: Record<ButtonSize, number> = {
-  sm: moderateScale(14),
-  md: moderateScale(18),
-  lg: moderateScale(22),
+  sm: 14,
+  md: 18,
+  lg: 22,
 };
 
 export const BUTTON_PADDING_HORIZONTAL: Record<ButtonSize, number> = {
-  sm: moderateScale(12),
-  md: moderateScale(16),
-  lg: moderateScale(24),
+  sm: 12,
+  md: 16,
+  lg: 24,
 };
 
 export const DEFAULT_VARIANT = 'primary' as const;
@@ -126,7 +125,6 @@ export const DEFAULT_SIZE = 'md' as const;
 ```typescript
 // src/components/button/button.styles.ts
 
-import { moderateScale } from 'react-native-size-matters';
 import type { AppTheme } from '@/theme/interfaces';
 import type { EdgeInsets } from 'react-native-safe-area-context';
 import type { ButtonVariant, ButtonSize } from './button.types';
@@ -311,7 +309,7 @@ All interactive components MUST respect minimum touch targets:
 >
 
 // ✅ Touch target meets minimum
-const MINIMUM_TOUCH_SIZE = moderateScale(44);
+const MINIMUM_TOUCH_SIZE = 44;
 container: {
   minHeight: MINIMUM_TOUCH_SIZE,
   minWidth: MINIMUM_TOUCH_SIZE,

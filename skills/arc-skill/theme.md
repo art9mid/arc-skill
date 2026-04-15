@@ -6,7 +6,7 @@ The theme system provides:
 - Multiple color schemes (light, dark, + custom)
 - Type-safe theme access via hooks
 - Persistence of user preference in MMKV
-- Responsive sizing with `react-native-size-matters`
+- Plain dp/pt values for sizing (no scaling library needed — RN handles pixel density)
 - Safe area inset awareness
 
 ## Theme Interface
@@ -77,16 +77,17 @@ export interface AppTheme {
 ```typescript
 // src/theme/index.ts
 
-import { moderateScale } from 'react-native-size-matters';
 import type { AppTheme, AppColorSchemeName } from './interfaces';
 
-// Static sizes — not in theme, they never change and don't need re-renders
+// Static sizes — not in theme, they never change and don't need re-renders.
+// Plain numbers = density-independent pixels (dp on Android, pt on iOS).
+// RN maps these to physical pixels automatically via PixelRatio.
 export const sizes = {
-  paddingVertical: moderateScale(16),
-  paddingHorizontal: moderateScale(20),
-  mainBorderRadius: moderateScale(12),
-  fieldGap: moderateScale(12),
-  skeletonBorderRadius: moderateScale(8),
+  paddingVertical: 16,
+  paddingHorizontal: 20,
+  mainBorderRadius: 12,
+  fieldGap: 12,
+  skeletonBorderRadius: 8,
 } as const;
 
 const baseFonts = {
@@ -159,14 +160,13 @@ export const defaultColorScheme: AppColorSchemeName = 'light';
 
 ## Typography Scale
 
-Static typography tokens — defined outside the theme since they don't change with color scheme. Uses `moderateScale` for responsive sizing across devices.
+Static typography tokens — defined outside the theme since they don't change with color scheme. Plain dp/pt values — RN handles pixel density mapping automatically.
 
 > **Do not copy this template blindly.** Adjust sizes, weights, and line heights to match the actual design (Figma, screenshot, or brand guidelines). The values below are sensible defaults — use them as a starting point, not a rigid rule.
 
 ```typescript
 // src/theme/typography.ts
 
-import { moderateScale } from 'react-native-size-matters';
 import { fontFamilies } from './fonts';
 
 // Major third ratio (1.25) — balanced for mobile
@@ -176,60 +176,60 @@ export const typography = {
   // Headings
   h1: {
     fontFamily: fontFamilies.bold,
-    fontSize: moderateScale(32),
-    lineHeight: moderateScale(38),   // ~1.2×
+    fontSize: 32,
+    lineHeight: 38,   // ~1.2×
     letterSpacing: -0.5,
   },
   h2: {
     fontFamily: fontFamilies.bold,
-    fontSize: moderateScale(24),
-    lineHeight: moderateScale(30),   // ~1.25×
+    fontSize: 24,
+    lineHeight: 30,   // ~1.25×
     letterSpacing: -0.3,
   },
   h3: {
     fontFamily: fontFamilies.semibold,
-    fontSize: moderateScale(20),
-    lineHeight: moderateScale(26),   // ~1.3×
+    fontSize: 20,
+    lineHeight: 26,   // ~1.3×
     letterSpacing: 0,
   },
   h4: {
     fontFamily: fontFamilies.semibold,
-    fontSize: moderateScale(18),
-    lineHeight: moderateScale(24),   // ~1.35×
+    fontSize: 18,
+    lineHeight: 24,   // ~1.35×
     letterSpacing: 0,
   },
 
   // Paragraphs
   p1: {
     fontFamily: fontFamilies.regular,
-    fontSize: moderateScale(16),
-    lineHeight: moderateScale(24),   // 1.5×
+    fontSize: 16,
+    lineHeight: 24,   // 1.5×
     letterSpacing: 0,
   },
   p2: {
     fontFamily: fontFamilies.regular,
-    fontSize: moderateScale(14),
-    lineHeight: moderateScale(20),   // ~1.45×
+    fontSize: 14,
+    lineHeight: 20,   // ~1.45×
     letterSpacing: 0.1,
   },
 
   // Labels & Captions
   label: {
     fontFamily: fontFamilies.medium,
-    fontSize: moderateScale(14),
-    lineHeight: moderateScale(20),   // ~1.4×
+    fontSize: 14,
+    lineHeight: 20,   // ~1.4×
     letterSpacing: 0.1,
   },
   caption: {
     fontFamily: fontFamilies.regular,
-    fontSize: moderateScale(12),
-    lineHeight: moderateScale(16),   // ~1.35×
+    fontSize: 12,
+    lineHeight: 16,   // ~1.35×
     letterSpacing: 0.2,
   },
   overline: {
     fontFamily: fontFamilies.semibold,
-    fontSize: moderateScale(11),
-    lineHeight: moderateScale(14),   // ~1.3×
+    fontSize: 11,
+    lineHeight: 14,   // ~1.3×
     letterSpacing: 0.5,
     textTransform: 'uppercase' as const,
   },

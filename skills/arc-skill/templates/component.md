@@ -17,8 +17,6 @@ export interface [ComponentName]Props {
 ```typescript
 // src/components/[component-name]/[component-name].constants.ts
 
-import { moderateScale } from 'react-native-size-matters';
-
 // Define constants, sizes, variants here
 ```
 
@@ -27,7 +25,6 @@ import { moderateScale } from 'react-native-size-matters';
 ```typescript
 // src/components/[component-name]/[component-name].styles.ts
 
-import { moderateScale } from 'react-native-size-matters';
 import type { AppTheme } from '@/theme/interfaces';
 import type { EdgeInsets } from 'react-native-safe-area-context';
 

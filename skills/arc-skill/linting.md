@@ -210,7 +210,6 @@ import { View, Text, FlatList } from 'react-native';
 
 // 2. External libraries
 import { useQuery } from '@tanstack/react-query';
-import { moderateScale } from 'react-native-size-matters';
 
 // 3. Internal aliases (@/)
 import { useStyles } from '@/hooks/use-styles';
